@@ -519,7 +519,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 750967720}
   m_Lens:
-    FieldOfView: 64.06
+    FieldOfView: 66.62
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -545,8 +545,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409194765}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.018191986, y: 0.003556299, z: -0.000009700327, w: -0.9998282}
-  m_LocalPosition: {x: -0.86, y: 1.12, z: -11.39}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.86, y: 0.120000005, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -953,8 +953,9 @@ MonoBehaviour:
   rb: {fileID: 750967715}
   power: 7
   minPower: {x: -3, y: -3}
-  maxPower: {x: 5, y: 5}
-  spritePrefab: {fileID: 4698887004664293191, guid: 6a96e486f0fad0044a7e58f21d8089ac, type: 3}
+  maxPower: {x: 3, y: 3}
+  spritePrefab: {fileID: 4698887004664293191, guid: 6a96e486f0fad0044a7e58f21d8089ac,
+    type: 3}
   instanstiatedSprite: {fileID: 0}
   steps: 40
 --- !u!1 &856489105
@@ -2177,9 +2178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 3.02, z: -11.39}
+  m_FollowOffset: {x: 0, y: 2.02, z: -12}
   m_XDamping: 1
-  m_YDamping: 1
+  m_YDamping: 2
   m_ZDamping: 1
   m_AngularDampingMode: 0
   m_PitchDamping: 0
@@ -2204,8 +2205,8 @@ MonoBehaviour:
   m_LookaheadIgnoreY: 0
   m_HorizontalDamping: 0.5
   m_VerticalDamping: 0.5
-  m_ScreenX: 0.45
-  m_ScreenY: 0.44
+  m_ScreenX: 0.62
+  m_ScreenY: 0.42
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_SoftZoneWidth: 0.8
@@ -2307,7 +2308,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2330,7 +2331,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 64.06
+  field of view: 66.62
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2356,8 +2357,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047872056}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.018191986, y: 0.003556299, z: -0.000009700327, w: -0.9998282}
-  m_LocalPosition: {x: -0.86, y: 1.12, z: -11.39}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.86, y: 0.120000005, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
