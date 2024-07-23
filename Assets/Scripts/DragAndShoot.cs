@@ -5,13 +5,16 @@ using UnityEngine;
 public class DragAndShoot : MonoBehaviour
 {
     public Rigidbody rb;
-    public float power = 4f;
+    [SerializeField] public float power = 5f;
 
+    private int bounceHit;
+    private int bounceCount;
 
     public Vector2 minPower;
     public Vector2 maxPower;
     public GameObject spritePrefab;
     public GameObject instanstiatedSprite;
+    float distToGround;
 
     private Camera _camera;
     private Vector3 _force;
@@ -21,67 +24,109 @@ public class DragAndShoot : MonoBehaviour
     private Trajectory _trajectory;
     [SerializeField] private int steps;
 
+    private Vector3 _tempVec;
+
 
     private bool _isGrounded;
+    private bool _buttonDown;
 
 
     private void Start()
     {
+        bounceHit = 0;
         _camera = Camera.main;
         _trail = GetComponent<LineTrail>();
         _trajectory = GetComponentInChildren<Trajectory>();
+        distToGround = GetComponent<Collider>().bounds.extents.y;
     }
 
 
     private void Update()
     {
-        _isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.6f);
 
 
-        if (!_isGrounded)
+        if (!_isGrounded && rb.velocity != Vector3.zero)
         {
             _trail.EndLine();
             _trajectory.EndLine02();
-            
+            //Debug.Log("Not grounded");
+
             return;
         }
 
-
-        if (Input.GetMouseButtonDown(0))
+        if (_isGrounded && rb.velocity == Vector3.zero)
         {
-            _startPoint = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 3f));
-            rb.drag = 0;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                _buttonDown = true;
+                _startPoint = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 3f));
+            }
+
+            if (_buttonDown)
+            {
+
+
+                if (Input.GetMouseButton(0))
+                {
+                    Vector3 currentPoint = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 3f));
+                    _trail.RenderLine(currentPoint);
+
+
+                    _force = new Vector3(Mathf.Clamp(_startPoint.x - currentPoint.x, minPower.x, maxPower.x),
+                        Mathf.Clamp(_startPoint.y - currentPoint.y, minPower.y, maxPower.y), 0);
+
+
+                    Vector3[] trajectory = _trajectory.Plot(transform.position, _force * power, steps);
+                    _trajectory.RenderTrajectory(trajectory);
+                }
+
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    _buttonDown = false;
+                    _tempVec = _trajectory.tempVec;
+                    bounceCount = _trajectory.bounceCount;
+
+                    rb.drag = 0;
+                    _trail.EndLine();
+                    _trajectory.EndLine02();
+                    _endPoint = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 3f));
+
+                    _force = new Vector3(Mathf.Clamp(_startPoint.x - _endPoint.x, minPower.x, maxPower.x),
+                        Mathf.Clamp(_startPoint.y - _endPoint.y, minPower.y, maxPower.y), 0);
+                    // rb.AddForce(_force * power, ForceMode.Impulse);
+                    rb.velocity = _force * power ;
+                    rb.useGravity = false;
+                    if (bounceCount == 0)
+                    {
+                        Debug.Log("1");
+                        instanstiatedSprite = Instantiate(spritePrefab, _tempVec + _force.normalized * 0.2f, Quaternion.identity);
+
+                    }
+
+                }
+            }
+
         }
 
+        Debug.Log("grounded: "+_isGrounded);
+        //Debug.Log("Bounce count: " + bounceCount);
+        //Debug.Log("Bounce hit: "+bounceHit);
+    }
 
-        if (Input.GetMouseButton(0))
+
+    void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.tag == "ground")
         {
-            Vector3 currentPoint = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 3f));
-            _trail.RenderLine(currentPoint);
-
-
-            _force = new Vector3(Mathf.Clamp(_startPoint.x - currentPoint.x, minPower.x, maxPower.x),
-                Mathf.Clamp(_startPoint.y - currentPoint.y, minPower.y, maxPower.y), 0);
-
-
-            Vector3[] trajectory = _trajectory.Plot(transform.position, _force * power, steps);
-            _trajectory.RenderTrajectory(trajectory);
+            _isGrounded = true;
+            //Debug.Log("Grounded");
         }
-
-
-        if (Input.GetMouseButtonUp(0))
+        else
         {
-            _trail.EndLine();
-            _trajectory.EndLine02();
-            _endPoint = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 3f));
-
-
-            _force = new Vector3(Mathf.Clamp(_startPoint.x - _endPoint.x, minPower.x, maxPower.x),
-                Mathf.Clamp(_startPoint.y - _endPoint.y, minPower.y, maxPower.y), 0);
-            // rb.AddForce(_force * power, ForceMode.Impulse);
-            rb.velocity = _force * power;
-            rb.useGravity = false;
-            instanstiatedSprite = Instantiate(spritePrefab, _trajectory.tempVec + _force.normalized * 0.2f, Quaternion.identity);
+            _isGrounded = false;
+            //Debug.Log("Not Grounded!");
         }
     }
 
@@ -93,6 +138,7 @@ public class DragAndShoot : MonoBehaviour
             rb.useGravity = true;
             Destroy(instanstiatedSprite);
             rb.drag = 2.5f;
+
         }
     }
 
@@ -102,6 +148,21 @@ public class DragAndShoot : MonoBehaviour
         {
             rb.useGravity = true;
             Destroy(instanstiatedSprite);
+        }
+        else if (other.gameObject.CompareTag("bouncy"))
+        {
+            bounceHit++;
+            if ((bounceCount != 0 && bounceHit >= bounceCount))
+            {
+                Debug.Log("2");
+                instanstiatedSprite = Instantiate(spritePrefab, _tempVec + _force.normalized * 0.2f, Quaternion.identity);
+                bounceHit = 0;
+                bounceCount = 0;
+            }
+        }
+        if (other.gameObject.CompareTag("enemy"))
+        {
+            Destroy(other.gameObject);
         }
     }
 
