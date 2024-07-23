@@ -27,6 +27,8 @@ public class DragAndShoot : MonoBehaviour
     private Vector3 _tempVec;
 
 
+    private bool dragforce;
+
     private bool _isGrounded;
     private bool _buttonDown;
 
@@ -88,7 +90,6 @@ public class DragAndShoot : MonoBehaviour
                     _tempVec = _trajectory.tempVec;
                     bounceCount = _trajectory.bounceCount;
 
-                    rb.drag = 0;
                     _trail.EndLine();
                     _trajectory.EndLine02();
                     _endPoint = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 3f));
@@ -115,6 +116,26 @@ public class DragAndShoot : MonoBehaviour
         //Debug.Log("Bounce hit: "+bounceHit);
     }
 
+    void FixedUpdate()
+    {
+        if (dragforce)
+        {
+            ApplyDrag();
+        }
+    }
+
+    void ApplyDrag()
+    {
+        Vector3 dragForce = -1f * rb.velocity.sqrMagnitude * rb.velocity.normalized;
+
+        rb.AddForce(dragForce);
+    }
+
+    private void resetDrag()
+    {
+        dragforce = false;
+    }
+
 
     void OnCollisionStay(Collision other)
     {
@@ -137,8 +158,8 @@ public class DragAndShoot : MonoBehaviour
         {
             rb.useGravity = true;
             Destroy(instanstiatedSprite);
-            rb.drag = 2.5f;
-
+            dragforce = true;
+            Invoke("resetDrag",0.5f);
         }
     }
 
@@ -148,6 +169,7 @@ public class DragAndShoot : MonoBehaviour
         {
             rb.useGravity = true;
             Destroy(instanstiatedSprite);
+            resetDrag();
         }
         else if (other.gameObject.CompareTag("bouncy"))
         {
