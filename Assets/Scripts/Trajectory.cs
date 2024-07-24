@@ -1,14 +1,16 @@
 using UnityEngine;
 public class Trajectory : MonoBehaviour
 {
+
+    [SerializeField] LayerMask nonPlayer;
     private Rigidbody _rb;
     private LineRenderer _lr;
     public Vector3 tempVec;
-    bool flag;
+    bool flag;  
     public int bounceCount;
 
-    Color c1 = new Color(1f, 0.54f, 0f, 1);
-    Color c2 = Color.magenta;
+    Color c1 = Color.white;
+    Color c2 = Color.blue;
 
     void Start()
     {
@@ -17,6 +19,7 @@ public class Trajectory : MonoBehaviour
         _lr.numCapVertices = 40;
         _lr.startWidth = 0.3f;
         _lr.endWidth = 0.03f;
+        
     }
 
 
@@ -33,7 +36,7 @@ public class Trajectory : MonoBehaviour
 
             RaycastHit hit;
             
-            if (Physics.Raycast(pos, moveStep, out hit, moveStep.magnitude))
+            if (Physics.Raycast(pos, moveStep, out hit, moveStep.magnitude, nonPlayer))
             {
 
                 if (hit.collider.CompareTag("bouncy"))

@@ -97,7 +97,7 @@ public class DragAndShoot : MonoBehaviour
                     _force = new Vector3(Mathf.Clamp(_startPoint.x - _endPoint.x, minPower.x, maxPower.x),
                         Mathf.Clamp(_startPoint.y - _endPoint.y, minPower.y, maxPower.y), 0);
                     // rb.AddForce(_force * power, ForceMode.Impulse);
-                    rb.velocity = _force * power ;
+                    rb.velocity = _force * power;
                     rb.useGravity = false;
                     if (bounceCount == 0)
                     {
@@ -111,7 +111,7 @@ public class DragAndShoot : MonoBehaviour
 
         }
 
-        Debug.Log("grounded: "+_isGrounded);
+        Debug.Log("grounded: " + _isGrounded);
         //Debug.Log("Bounce count: " + bounceCount);
         //Debug.Log("Bounce hit: "+bounceHit);
     }
@@ -159,7 +159,7 @@ public class DragAndShoot : MonoBehaviour
             rb.useGravity = true;
             Destroy(instanstiatedSprite);
             dragforce = true;
-            Invoke("resetDrag",0.5f);
+            Invoke("resetDrag", 0.5f);
         }
     }
 
