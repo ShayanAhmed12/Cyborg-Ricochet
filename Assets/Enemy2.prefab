@@ -1,6 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &923076347048571913
+--- !u!1 &5986922708183597689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6127484743479411694}
+  m_Layer: 8
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6127484743479411694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5986922708183597689}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 3.109, z: 0.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3982993331046297256}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1001 &3516420883092523331
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -26,17 +57,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 73c1461556bbb0648801dd06f0cf42c4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.4515891
+      value: 2.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 73c1461556bbb0648801dd06f0cf42c4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.47
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 73c1461556bbb0648801dd06f0cf42c4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.037992477
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 73c1461556bbb0648801dd06f0cf42c4,
         type: 3}
@@ -95,34 +126,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 73c1461556bbb0648801dd06f0cf42c4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6127484743479411694}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 73c1461556bbb0648801dd06f0cf42c4,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7762103089082561635}
+      addedObject: {fileID: 501905041536161094}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 73c1461556bbb0648801dd06f0cf42c4,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4332401888453621130}
+      addedObject: {fileID: 4492894394267052587}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 73c1461556bbb0648801dd06f0cf42c4,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7973745802029041493}
+      addedObject: {fileID: 1267588411061157920}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 73c1461556bbb0648801dd06f0cf42c4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5991739190985160625}
   m_SourcePrefab: {fileID: 100100000, guid: 73c1461556bbb0648801dd06f0cf42c4, type: 3}
---- !u!1 &3946000706701656 stripped
+--- !u!4 &3982993331046297256 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 73c1461556bbb0648801dd06f0cf42c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3516420883092523331}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4327325890816242706 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 73c1461556bbb0648801dd06f0cf42c4,
     type: 3}
-  m_PrefabInstance: {fileID: 923076347048571913}
+  m_PrefabInstance: {fileID: 3516420883092523331}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &7762103089082561635
+--- !u!54 &501905041536161094
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3946000706701656}
+  m_GameObject: {fileID: 4327325890816242706}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -141,15 +186,15 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 122
   m_CollisionDetection: 0
---- !u!136 &4332401888453621130
+--- !u!136 &4492894394267052587
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3946000706701656}
+  m_GameObject: {fileID: 4327325890816242706}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -166,19 +211,19 @@ CapsuleCollider:
   m_Height: 4.27
   m_Direction: 1
   m_Center: {x: 0, y: 2.05, z: 0}
---- !u!114 &7973745802029041493
+--- !u!114 &1267588411061157920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3946000706701656}
+  m_GameObject: {fileID: 4327325890816242706}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 084f1441991cad94fbf9888f80f75c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 2
+  radius: 3
   angle: 105
   targetLayer:
     serializedVersion: 2
@@ -190,3 +235,20 @@ MonoBehaviour:
   objectCenter: {x: 0, y: 0, z: 0}
   targetCenter: {x: 0, y: 0, z: 0}
   canSeePlayer: 0
+--- !u!114 &5991739190985160625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4327325890816242706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa4194da1e053648b79a25101ac9480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: 0.5
+  spawnPoint: {fileID: 6127484743479411694}
+  power: 10
+  enemyBullet: {fileID: 3443396810230067074, guid: 8c32db562d43acf42a2c521b37d0420d,
+    type: 3}
