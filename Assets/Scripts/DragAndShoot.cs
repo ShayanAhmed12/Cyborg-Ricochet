@@ -26,10 +26,11 @@ public class DragAndShoot : MonoBehaviour
 
     private Vector3 _tempVec;
 
+    private RaycastHit _hit;
 
     private bool dragforce;
 
-    private bool _isGrounded;
+    public bool _isGrounded;
     private bool _buttonDown;
 
 
@@ -45,9 +46,14 @@ public class DragAndShoot : MonoBehaviour
 
     private void Update()
     {
+        Vector3 boxCenter = transform.position + (0.35f * new Vector3(0, 2.27f, 0));
+        Vector3 halfExtents = new Vector3(0.1f, 0.7f, 0.1f);
+        float maxDistance = 0.2f;
+        Quaternion orientation = Quaternion.identity;
 
+        _isGrounded = Physics.BoxCast(boxCenter, halfExtents, Vector3.down, out _hit, orientation, maxDistance);
 
-        if (!_isGrounded && rb.velocity != Vector3.zero)
+        if (!_isGrounded)
         {
             _trail.EndLine();
             _trajectory.EndLine02();
@@ -56,7 +62,7 @@ public class DragAndShoot : MonoBehaviour
             return;
         }
 
-        if (_isGrounded && rb.velocity == Vector3.zero)
+        if (_isGrounded)
         {
 
             if (Input.GetMouseButtonDown(0))
@@ -136,7 +142,7 @@ public class DragAndShoot : MonoBehaviour
         dragforce = false;
     }
 
-
+    /*
     void OnCollisionStay(Collision other)
     {
         if (other.gameObject.tag == "ground")
@@ -150,7 +156,7 @@ public class DragAndShoot : MonoBehaviour
             //Debug.Log("Not Grounded!");
         }
     }
-
+    */
 
     private void OnTriggerEnter(Collider other)
     {
